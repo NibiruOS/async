@@ -1,0 +1,7 @@
+rootProject.name = 'nibiruAsync'
+
+include ':org.nibiru.async.android'
+include ':org.nibiru.async.core'
+include ':org.nibiru.async.gwt'
+include ':org.nibiru.async.java'
+include ':org.nibiru.async.ios'

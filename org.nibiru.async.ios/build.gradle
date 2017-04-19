@@ -1,0 +1,5 @@
+dependencies {
+	compile project(":org.nibiru.async.core")
+	compile project(":org.nibiru.async.java")
+	compile fileTree(dir: 'lib', include: '*.jar')
+}
