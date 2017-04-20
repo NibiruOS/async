@@ -4,10 +4,16 @@ import org.nibiru.async.core.api.timer.Timer;
 
 import java.util.TimerTask;
 
+import javax.inject.Inject;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class JavaTimer implements Timer {
     private java.util.Timer timer = new java.util.Timer();
+
+    @Inject
+    public JavaTimer(){
+    }
 
     @Override
     public Task schedule(Runnable task, int delayMillis) {

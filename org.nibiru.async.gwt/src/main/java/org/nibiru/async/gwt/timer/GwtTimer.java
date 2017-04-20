@@ -2,9 +2,15 @@ package org.nibiru.async.gwt.timer;
 
 import org.nibiru.async.core.api.timer.Timer;
 
+import javax.inject.Inject;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class GwtTimer implements Timer {
+    @Inject
+    public GwtTimer() {
+    }
+
     @Override
     public Task schedule(Runnable task, int delayMillis) {
         checkNotNull(task);
