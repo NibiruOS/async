@@ -1,5 +1,6 @@
 package org.nibiru.async.java.timer;
 
+import org.nibiru.async.core.api.loop.Looper;
 import org.nibiru.async.core.api.timer.Timer;
 
 import java.util.TimerTask;
@@ -11,8 +12,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class JavaTimer implements Timer {
     private java.util.Timer timer = new java.util.Timer();
 
+    private final Looper looper;
+
     @Inject
-    public JavaTimer(){
+    public JavaTimer(Looper looper){
+        this.looper = looper;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class JavaTimer implements Timer {
         return new TimerTask() {
             @Override
             public void run() {
-                task.run();
+                looper.post(task);
             }
         };
     }
