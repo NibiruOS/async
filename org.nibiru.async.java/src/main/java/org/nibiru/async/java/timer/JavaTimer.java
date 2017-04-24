@@ -16,7 +16,7 @@ public class JavaTimer implements Timer {
 
     @Inject
     public JavaTimer(Looper looper){
-        this.looper = looper;
+        this.looper = checkNotNull(looper);
     }
 
     @Override
