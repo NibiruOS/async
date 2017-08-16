@@ -5,7 +5,8 @@ import com.google.common.base.Function;
 import org.nibiru.async.core.api.function.Consumer;
 import org.nibiru.async.core.api.promise.Promise;
 
-class MappedErrorPromise<D extends Exception, V, E extends Exception> implements Promise<V, E> {
+class MappedErrorPromise<D extends Exception, V, E extends Exception>
+        extends BasePromise<V, E> {
     private final Promise<V, D> decorated;
     private final Function<D,E> converter;
 

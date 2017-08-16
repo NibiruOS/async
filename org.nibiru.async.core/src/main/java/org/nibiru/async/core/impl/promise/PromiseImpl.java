@@ -3,11 +3,12 @@ package org.nibiru.async.core.impl.promise;
 import com.google.common.base.Function;
 
 import org.nibiru.async.core.api.function.Consumer;
+import org.nibiru.async.core.api.promise.Deferred;
 import org.nibiru.async.core.api.promise.Promise;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class PromiseImpl<V, E extends Exception> implements Promise<V, E> {
+public class PromiseImpl<V, E extends Exception> extends BasePromise<V, E> {
     private boolean resolved;
     private V value;
     private boolean rejected;
@@ -63,15 +64,5 @@ public class PromiseImpl<V, E extends Exception> implements Promise<V, E> {
             finallyCallback.run();
         }
         return this;
-    }
-
-    @Override
-    public <V1> Promise<V1, E> map(Function<V, V1> converter) {
-        return new MappedPromise<>(this, converter);
-    }
-
-    @Override
-    public <E1 extends Exception> Promise<V, E1> mapError(Function<E, E1> converter) {
-        return new MappedErrorPromise<>(this, converter);
     }
 }
