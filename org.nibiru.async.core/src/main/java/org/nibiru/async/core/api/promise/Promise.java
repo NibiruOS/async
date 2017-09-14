@@ -16,4 +16,7 @@ public interface Promise<V, E extends Exception> {
     <E1 extends Exception> Promise<V, E1> mapError(Function<E, E1> converter);
 
     <V1> Promise<V1, E> continueWith(Function<V, Promise<V1, E>> continuation);
+
+    <V1, E1 extends Exception> Promise<V1, E1> continueWith(Function<V, Promise<V1, E1>> continuation,
+                                                            Function<E, E1> exceptionConverter);
 }
