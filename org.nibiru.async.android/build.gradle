@@ -3,5 +3,5 @@ apply plugin: 'me.tatarka.retrolambda'
 dependencies {
     compile project(":org.nibiru.async.core")
     compile project(":org.nibiru.async.java")
-    compile "com.google.android:android:${androidVersion}"
+    provided "com.google.android:android:${androidVersion}"
 }
