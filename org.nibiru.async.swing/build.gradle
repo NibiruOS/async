@@ -1,4 +1,4 @@
 dependencies {
 	compile project(":org.nibiru.async.core")
-	compile fileTree(dir: 'lib', include: '*.jar')
+	compile project(":org.nibiru.async.java")
 }

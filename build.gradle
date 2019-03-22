@@ -3,11 +3,11 @@ project.ext {
 	guavaVersion = '20.0'
 	gwtVersion = '2.8.0'
 	androidVersion = '4.0.1.2'
-	daggerVersion = '2.16'
+	daggerVersion = '2.22.1'
 }
 
 allprojects {
-	version = '1.0.1'
+	version = '1.0.2-SNAPSHOT'
 	group = 'io.github.nibiruos.async'
 
 	repositories {
@@ -28,9 +28,6 @@ allprojects {
     	repositories {
         	mavenCentral()
     	}
-    	dependencies {
-	        classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
-	    }
 	}
 }
 
@@ -49,6 +46,11 @@ subprojects {
 	task sourcesJar(type: Jar, dependsOn: classes) {
 		classifier = 'sources'
 		from sourceSets.main.allSource
+	}
+
+	tasks.withType(Javadoc) {
+		// Workaround for https://github.com/gradle/gradle/issues/5630
+		(options as CoreJavadocOptions).addStringOption("sourcepath", "")
 	}
 
 	publishing {
@@ -99,21 +101,11 @@ subprojects {
 
 	sourceCompatibility = 1.8
 
-	configurations {
-	    provided
-	}
-
-	sourceSets {
-	    main {
-	        compileClasspath += configurations.provided
-	    }
-	}
-
     javadoc.classpath = sourceSets.main.compileClasspath
 
 	dependencies {
 		testCompile "junit:junit:4.12"
 		compile "com.google.dagger:dagger:${daggerVersion}"
-		provided "com.google.dagger:dagger-compiler:${daggerVersion}"
+		annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 	}
 }
