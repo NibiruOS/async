@@ -21,10 +21,18 @@ public class PromiseImpl<V, E extends Exception> extends BasePromise<V, E> {
         resolved = true;
         this.value = value;
         if (successCallback != null) {
-            successCallback.accept(value);
+            try {
+                successCallback.accept(value);
+            } catch (Exception e) {
+                errorCallback.accept((E) e);
+            }
         }
         if (finallyCallback != null) {
-            finallyCallback.run();
+            try {
+                finallyCallback.run();
+            } catch (Exception e) {
+                errorCallback.accept((E) e);
+            }
         }
     }
 
@@ -35,7 +43,11 @@ public class PromiseImpl<V, E extends Exception> extends BasePromise<V, E> {
             errorCallback.accept(exception);
         }
         if (finallyCallback != null) {
-            finallyCallback.run();
+            try {
+                finallyCallback.run();
+            } catch (Exception e) {
+                errorCallback.accept((E) e);
+            }
         }
     }
 
@@ -43,7 +55,11 @@ public class PromiseImpl<V, E extends Exception> extends BasePromise<V, E> {
     public Promise<V, E> then(Consumer<V> successCallback) {
         this.successCallback = checkNotNull(successCallback);
         if (resolved) {
-            successCallback.accept(value);
+            try {
+                successCallback.accept(value);
+            } catch (Exception e) {
+                errorCallback.accept((E) e);
+            }
         }
         return this;
     }
@@ -61,7 +77,11 @@ public class PromiseImpl<V, E extends Exception> extends BasePromise<V, E> {
     public Promise<V, E> last(Runnable finallyCallback) {
         this.finallyCallback = checkNotNull(finallyCallback);
         if (resolved || rejected) {
-            finallyCallback.run();
+            try {
+                finallyCallback.run();
+            } catch (Exception e) {
+                errorCallback.accept((E) e);
+            }
         }
         return this;
     }
